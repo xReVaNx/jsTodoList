@@ -4,9 +4,9 @@
     <title>ToDo App</title>
     <link href="../src/styles.css" rel="stylesheet" />
     <script src="../src/todoList.js" type="text/javascript"></script>
-    <script src="../src/disableSubmit.js" type="text/javascript"></script>
+    <script src="../src/Listeners.js" type="text/javascript"></script>
   </head>
-  <body onload="disableSubmit()">
+  <body onload="Listeners()">
     <div id="container">
       <div id="todoList">
         <div id="menu">
@@ -17,9 +17,7 @@
               placeholder="Wpisz zadanie do wykonania"
               value=""
             />
-            <button id="submitBtn" type="submit" onclick="addTask()">
-              Dodaj
-            </button>
+            <button id="submitBtn" type="submit">Dodaj</button>
           </form>
         </div>
         <div id="todoElements"></div>

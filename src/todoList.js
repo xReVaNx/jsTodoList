@@ -12,22 +12,41 @@ function displayTasks() {
     todoElements.appendChild(createUl);
   }
 
-  tasks.map(createTaskList(tasks.name, tasks.time));
-}
+  document.getElementById("elementsList").innerHTML = "";
 
-// Naprawić funkcjonalność
-function createTaskList(arrayName, arrayTime) {
-  console.log(arrayName);
-  const idKey = arrayName;
-  const elementsList = document.querySelector("#elementsList");
-  const createLi = document.createElement("li");
-  createLi.setAttribute("id", idKey);
-  const createNameContent = document.createTextNode(arrayName);
-  const createTimeContent = document.createTextNode(arrayTime);
+  for (let i = 0; i < tasks.length; i++) {
+    const elementsList = document.querySelector("#elementsList");
+    const createLi = document.createElement("li");
 
-  elementsList.appendChild(createLi);
-  document.getElementById(arrayName).appendChild(createNameContent);
-  document.getElementById(arrayName).appendChild(createTimeContent);
+    const idKey = tasks[i].name.toString() + i.toString();
+
+    createLi.setAttribute("id", idKey);
+    elementsList.appendChild(createLi);
+
+    const elementLi = document.getElementById(idKey);
+
+    const nameIdKey = "nameDiv" + i.toString();
+
+    const dateIdKey = "dateDiv" + i.toString();
+
+    let nameDiv = document.createElement("div");
+    nameDiv.setAttribute("id", nameIdKey);
+    nameDiv.setAttribute("class", "nameDiv");
+    let dateDiv = document.createElement("div");
+    dateDiv.setAttribute("id", dateIdKey);
+    dateDiv.setAttribute("class", "dateDiv");
+
+    const elementContentName = document.createTextNode(tasks[i].name);
+    const elementContentDate = document.createTextNode(tasks[i].date);
+    elementLi.appendChild(nameDiv);
+    elementLi.appendChild(dateDiv);
+
+    nameDiv = document.getElementById(nameIdKey);
+    dateDiv = document.getElementById(dateIdKey);
+
+    nameDiv.appendChild(elementContentName);
+    dateDiv.appendChild(elementContentDate);
+  }
 }
 
 function addTask() {
@@ -49,12 +68,15 @@ function addTask() {
   tasks.push({ name: inputValue.value, date: time });
   inputValue.value = "";
 
-  //Test
-  console.log(tasks);
-
   displayTasks();
 }
 
-function deleteTask() {}
+function deleteTask() {
+  displayTasks();
+}
 
 function modifyTask() {}
+
+function isDone() {
+  console.log("wykonano");
+}
