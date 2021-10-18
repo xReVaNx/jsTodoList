@@ -1,0 +1,55 @@
+body {
+  background-color: #3d3d3d;
+}
+
+#container {
+  width: 100vw;
+  max-width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#todoList {
+  width: 500px;
+  min-height: 400px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+#menu form {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#menu input {
+  width: 300px;
+  height: 40px;
+  text-align: center;
+  color: white;
+  background-color: #2e2e2e;
+  font-size: 20px;
+  box-sizing: content-box;
+  margin: 0;
+  border: none;
+  padding: 0;
+  outline: none;
+}
+
+#menu button {
+  width: 80px;
+  height: 40px;
+  box-sizing: content-box;
+  color: white;
+  background-color: #008cdd;
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+
+#menu button:hover {
+  background-color: #00639c;
+  cursor: pointer;
+}
