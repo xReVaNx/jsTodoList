@@ -37,7 +37,7 @@ body {
 }
 
 #menu button {
-  width: 80px;
+  width: 40px;
   height: 40px;
   box-sizing: content-box;
   color: white;
@@ -70,11 +70,6 @@ body {
   width: 600px;
   height: 80px;
   list-style-type: none;
-  background-color: #008cdd;
-}
-
-#elementsList li:hover {
-  background-color: pink;
 }
 
 #elementsList li div {
@@ -86,10 +81,41 @@ body {
 }
 
 .nameDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
   width: 80%;
-  border-right: 2px dotted black;
+  height: 100%;
+  border-right: 2px solid black;
+  background-color: #008cdd;
 }
 
-.dateDiv {
+.done {
+  background-color: #969696;
+  text-decoration: line-through;
+}
+
+.optionDiv {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 20%;
+  height: 100%;
+  cursor: pointer;
+  background-color: #b82626;
+  color: white;
+}
+
+.optionDiv:hover {
+  background-color: #911212;
+  color: white;
+}
+
+.fa-plus-square {
+  font-size: 24px;
+}
+
+.optionDiv i {
+  font-size: 24px;
 }

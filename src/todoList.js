@@ -1,82 +1,104 @@
-var tasks = [];
-var date, time, hour, minute;
+// Elements
+const jsForm = document.querySelector("#jsForm");
+const text = document.querySelector("#newTask");
+const submitBtn = document.querySelector("#submit-btn");
+const elementsList = document.querySelector("#elementsList");
+let todoArray = [];
 
+// Events
+jsForm.addEventListener("submit", (e) => {
+  // Turning off default form functionality
+  e.preventDefault();
+});
+
+window.addEventListener("DOMContentLoaded", displayTasks);
+
+submitBtn.addEventListener("click", addTask);
+
+// Function that display tasks
 function displayTasks() {
-  const todoElements = document.querySelector("#todoElements");
-
-  const ulExists = document.querySelector("ul");
-  const createUl = document.createElement("ul");
-  createUl.setAttribute("id", "elementsList");
-
-  if (!ulExists) {
-    todoElements.appendChild(createUl);
+  elementsList.innerHTML = "";
+  let todo = localStorage.getItem("todo");
+  if (todo === null) {
+    todoArray = [];
+  } else {
+    todoArray = JSON.parse(todo);
   }
 
-  document.getElementById("elementsList").innerHTML = "";
-
-  for (let i = 0; i < tasks.length; i++) {
-    const elementsList = document.querySelector("#elementsList");
+  for (let i = 0; i < todoArray.length; i++) {
     const createLi = document.createElement("li");
+    const idKey = "task" + i.toString();
 
-    const idKey = tasks[i].name.toString() + i.toString();
+    const nameDiv = document.createElement("div");
+    nameDiv.setAttribute("class", "nameDiv");
+    nameDiv.setAttribute("id", "nameDiv" + i.toString());
+    nameDiv.setAttribute("onclick", "isDone(" + i + ")");
+    const optionDiv = document.createElement("div");
+    optionDiv.setAttribute("class", "optionDiv");
+    optionDiv.setAttribute("id", "optionDiv" + i.toString());
+    optionDiv.setAttribute("onclick", "deleteTask(" + i + ")");
 
     createLi.setAttribute("id", idKey);
     elementsList.appendChild(createLi);
 
+    const textValue = document.createTextNode(todoArray[i].name);
     const elementLi = document.getElementById(idKey);
 
-    const nameIdKey = "nameDiv" + i.toString();
+    nameIdKey = "nameDiv" + i.toString();
+    optionIdKey = "optionDiv" + i.toString();
 
-    const dateIdKey = "dateDiv" + i.toString();
-
-    let nameDiv = document.createElement("div");
     nameDiv.setAttribute("id", nameIdKey);
-    nameDiv.setAttribute("class", "nameDiv");
-    let dateDiv = document.createElement("div");
-    dateDiv.setAttribute("id", dateIdKey);
-    dateDiv.setAttribute("class", "dateDiv");
 
-    const elementContentName = document.createTextNode(tasks[i].name);
-    const elementContentDate = document.createTextNode(tasks[i].date);
+    // isDone
+    if (todoArray[i].done === true) {
+      nameDiv.classList.add("done");
+    }
+
+    optionDiv.setAttribute("id", optionIdKey);
+
     elementLi.appendChild(nameDiv);
-    elementLi.appendChild(dateDiv);
+    elementLi.appendChild(optionDiv);
 
-    nameDiv = document.getElementById(nameIdKey);
-    dateDiv = document.getElementById(dateIdKey);
+    document.getElementById(nameIdKey).appendChild(textValue);
 
-    nameDiv.appendChild(elementContentName);
-    dateDiv.appendChild(elementContentDate);
+    document.getElementById("optionDiv" + i).innerHTML =
+      "<i class='fas fa-trash-alt'></i>";
   }
+  console.log(todoArray);
 }
 
+// Function that add tasks to the list
 function addTask() {
-  const inputValue = document.querySelector("#newTask");
-  date = new Date();
-  hour = date.getHours().toString();
-  minute = date.getMinutes().toString();
-
-  if (hour < 10) {
-    hour = "0" + hour;
+  let todo = localStorage.getItem("todo");
+  if (todo === null) {
+    todoArray = [];
+  } else {
+    todoArray = JSON.parse(todo);
   }
-
-  if (minute < 10) {
-    minute = "0" + minute;
-  }
-
-  time = hour + ":" + minute;
-
-  tasks.push({ name: inputValue.value, date: time });
-  inputValue.value = "";
-
+  todoArray.push({ name: text.value, done: false });
+  text.value = "";
+  localStorage.setItem("todo", JSON.stringify(todoArray));
   displayTasks();
 }
 
-function deleteTask() {
+// Function that delete task from the list
+function deleteTask(ind) {
+  let todo = localStorage.getItem("todo");
+  todoArray = JSON.parse(todo);
+  todoArray.splice(ind, 1);
+  localStorage.setItem("todo", JSON.stringify(todoArray));
   displayTasks();
 }
 
-function modifyTask() {}
-
-function isDone() {
-  console.log("wykonano");
+// Function that check task for done
+function isDone(ind) {
+  let todo = localStorage.getItem("todo");
+  if (todo === null) {
+    todoArray = [];
+  } else {
+    todoArray = JSON.parse(todo);
+  }
+  todoArray[ind].done = !todoArray[ind].done;
+  localStorage.setItem("todo", JSON.stringify(todoArray));
+  displayTasks();
 }
